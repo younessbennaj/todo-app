@@ -80,6 +80,9 @@ function App() {
 
     //Set tasks local state with this new array => avoid mutation of array
     setTasks(currentTasks);
+
+    //Clear input after form submission
+    setCreatedTask('');
   }
 
   function inputChange(e) {
