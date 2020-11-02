@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 
 
 const tasksModel = [
@@ -107,11 +107,11 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>#Todo</h1>
+    <div className="todo">
+      <h1 className="todo__title">#Todo</h1>
 
-      <form onSubmit={submitTask}>
-        <fieldset onChange={filterChange}>
+      <form className="todo__form" onSubmit={submitTask}>
+        <fieldset className="todo__fieldset" onChange={filterChange}>
           <label htmlFor="all"><input type="radio" value="" name="filter" id="all" defaultChecked /><span>all</span></label>
           <label htmlFor="active"><input type="radio" value="isActive" name="filter" id="active" /><span>active</span></label>
           <label htmlFor="completed"><input type="radio" value="isCompleted" name="filter" id="completed" /><span>completed</span></label>
