@@ -90,9 +90,20 @@ function App() {
     // console.log(!!e.target.checked);
     //If the task is checked by the user => isActive = false & isCompleted = true
     //else => isActive = true & isCompleted = false
-    const task = tasks.find(task => task.id === id);
+
+    //Get the task and copy it thanks to the spread operator 
+    const task = { ...tasks.find(task => task.id === id) };
     task.isActive = !e.target.checked;
     task.isCompleted = e.target.checked;
+
+    let currentTasks = [...tasks];
+    //Remove the original task and add its copy => avoid mutation
+    currentTasks = currentTasks.filter(task => task.id !== id);
+
+    //Add the copy of the task 
+    currentTasks.push(task);
+
+    setTasks(currentTasks);
   }
 
   return (
@@ -117,9 +128,6 @@ function App() {
                 <li key={task.id}><input defaultChecked={task.isCompleted} type="checkbox" name="task" id="" onChange={(e) => checkTask(e, task.id)} /><label htmlFor="">{task.description}</label></li>
               )
             })}
-            {/* <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
-            <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
-            <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li> */}
           </ul>
         </div>
       </form>
