@@ -13,13 +13,13 @@ function App() {
       isCompleted: false
     },
     {
-      id: 1,
+      id: 2,
       description: "Do coding challenges",
       isActive: true,
       isCompleted: false
     },
     {
-      id: 1,
+      id: 3,
       description: "Do coding challenges",
       isActive: false,
       isCompleted: true
@@ -29,6 +29,8 @@ function App() {
   //Local state that represents the tasks data
   const [tasks, setTasks] = useState([]);
 
+  const [filtredTasks, setFiltredTasks] = useState([]);
+
   //Local state that represents the selected filter selected by the user
   const [filter, setFilter] = useState('');
 
@@ -36,10 +38,19 @@ function App() {
   //No dependence
   useEffect(() => {
     setTasks(tasksModel);
+    setFilter('');
   }, []);
 
   //If filter state change do...
   useEffect(() => {
+    if (filter) {
+      //Create a new tasks array filtred depending on the value of filter
+      setFiltredTasks(tasks.filter(task => task[filter]));
+    } else {
+      //Otherwise, set filtredTasks to the original array of tasks
+      setFiltredTasks(tasks);
+    }
+
 
   }, [filter])
 
@@ -55,7 +66,7 @@ function App() {
 
       <form>
         <fieldset onChange={filterChange}>
-          <label htmlFor="all"><input type="radio" value="" name="filter" id="all" /><span>all</span></label>
+          <label htmlFor="all"><input type="radio" value="" name="filter" id="all" defaultChecked /><span>all</span></label>
           <label htmlFor="active"><input type="radio" value="isActive" name="filter" id="active" /><span>active</span></label>
           <label htmlFor="completed"><input type="radio" value="isCompleted" name="filter" id="completed" /><span>completed</span></label>
         </fieldset>
@@ -66,9 +77,14 @@ function App() {
         </div>
         <div>
           <ul>
+            {filtredTasks.map(task => {
+              return (
+                <li key={task.id}><input type="checkbox" name="" id="" /><label htmlFor="">{task.description}</label></li>
+              )
+            })}
+            {/* <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
             <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
-            <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
-            <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
+            <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li> */}
           </ul>
         </div>
       </form>
