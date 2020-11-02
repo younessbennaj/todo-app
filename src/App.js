@@ -86,6 +86,15 @@ function App() {
     setCreatedTask(e.target.value);
   }
 
+  function checkTask(e, id) {
+    // console.log(!!e.target.checked);
+    //If the task is checked by the user => isActive = false & isCompleted = true
+    //else => isActive = true & isCompleted = false
+    const task = tasks.find(task => task.id === id);
+    task.isActive = !e.target.checked;
+    task.isCompleted = e.target.checked;
+  }
+
   return (
     <div className="App">
       <h1>#Todo</h1>
@@ -105,7 +114,7 @@ function App() {
           <ul>
             {filtredTasks.map(task => {
               return (
-                <li key={task.id}><input defaultChecked={task.isCompleted} type="checkbox" name="task" id="" /><label htmlFor="">{task.description}</label></li>
+                <li key={task.id}><input defaultChecked={task.isCompleted} type="checkbox" name="task" id="" onChange={(e) => checkTask(e, task.id)} /><label htmlFor="">{task.description}</label></li>
               )
             })}
             {/* <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
