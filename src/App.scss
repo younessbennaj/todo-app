@@ -97,5 +97,9 @@
                 line-height: 22px;
              }
          }
+
+         input:checked  + label {
+            text-decoration: line-through;
+         }
      }
 }
