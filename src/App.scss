@@ -7,6 +7,12 @@
     display: flex;
     flex-direction: column;
 
+    @media screen and (max-width: 550px) {
+        width: 100vw;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
 
     &__title {
         text-align: center;
