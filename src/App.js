@@ -28,6 +28,9 @@ function App() {
   //Local state that represents the tasks data
   const [tasks, setTasks] = useState([]);
 
+  //Local state that represents the task that is being created by the user
+  const [createdTask, setCreatedTask] = useState('');
+
   const [filtredTasks, setFiltredTasks] = useState([]);
 
   //Local state that represents the selected filter selected by the user
@@ -51,7 +54,7 @@ function App() {
     }
 
 
-  }, [filter])
+  }, [filter, tasks])
 
   //Handler to call when the filter value is selected by the user...
   function filterChange(e) {
@@ -59,11 +62,35 @@ function App() {
     setFilter(e.target.value);
   }
 
+  //Handler to call when user needs to add a task
+  function submitTask(e) {
+    e.preventDefault();
+
+    //Create a new task data object
+    const task = {
+      //Generate a random id
+      id: Math.floor(Math.random() * 100),
+      description: createdTask,
+      isActive: true,
+      isCompleted: false
+    }
+
+    //Add this tasks to a new array created from the original tasks array
+    let currentTasks = [...tasks, task];
+
+    //Set tasks local state with this new array => avoid mutation of array
+    setTasks(currentTasks);
+  }
+
+  function inputChange(e) {
+    setCreatedTask(e.target.value);
+  }
+
   return (
     <div className="App">
       <h1>#Todo</h1>
 
-      <form>
+      <form onSubmit={submitTask}>
         <fieldset onChange={filterChange}>
           <label htmlFor="all"><input type="radio" value="" name="filter" id="all" defaultChecked /><span>all</span></label>
           <label htmlFor="active"><input type="radio" value="isActive" name="filter" id="active" /><span>active</span></label>
@@ -71,7 +98,7 @@ function App() {
         </fieldset>
         <div>
           <label htmlFor="task" style={{ display: "none" }}></label>
-          <input type="text" name="task" id="task" placeholder="add details" />
+          <input value={createdTask} onChange={inputChange} type="text" name="task" id="task" placeholder="add details" />
           <input type="submit" value="add" />
         </div>
         <div>
