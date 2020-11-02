@@ -2,29 +2,28 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 
+const tasksModel = [
+  {
+    id: 1,
+    description: "Do coding challenges",
+    isActive: true,
+    isCompleted: false
+  },
+  {
+    id: 2,
+    description: "Do coding challenges",
+    isActive: true,
+    isCompleted: false
+  },
+  {
+    id: 3,
+    description: "Do coding challenges",
+    isActive: false,
+    isCompleted: true
+  }
+]
 
 function App() {
-
-  const tasksModel = [
-    {
-      id: 1,
-      description: "Do coding challenges",
-      isActive: true,
-      isCompleted: false
-    },
-    {
-      id: 2,
-      description: "Do coding challenges",
-      isActive: true,
-      isCompleted: false
-    },
-    {
-      id: 3,
-      description: "Do coding challenges",
-      isActive: false,
-      isCompleted: true
-    }
-  ]
 
   //Local state that represents the tasks data
   const [tasks, setTasks] = useState([]);
@@ -38,7 +37,7 @@ function App() {
   //No dependence
   useEffect(() => {
     setTasks(tasksModel);
-    setFilter('');
+    setFiltredTasks(tasksModel);
   }, []);
 
   //If filter state change do...
@@ -79,7 +78,7 @@ function App() {
           <ul>
             {filtredTasks.map(task => {
               return (
-                <li key={task.id}><input type="checkbox" name="" id="" /><label htmlFor="">{task.description}</label></li>
+                <li key={task.id}><input defaultChecked={task.isCompleted} type="checkbox" name="task" id="" /><label htmlFor="">{task.description}</label></li>
               )
             })}
             {/* <li><input type="checkbox" name="" id="" /><label htmlFor="">Do coding challenges</label></li>
