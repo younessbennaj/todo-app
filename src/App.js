@@ -116,20 +116,19 @@ function App() {
           <label htmlFor="active"><input type="radio" value="isActive" name="filter" id="active" /><span>active</span></label>
           <label htmlFor="completed"><input type="radio" value="isCompleted" name="filter" id="completed" /><span>completed</span></label>
         </fieldset>
-        <div>
+        <div className="todo__input-group">
           <label htmlFor="task" style={{ display: "none" }}></label>
-          <input value={createdTask} onChange={inputChange} type="text" name="task" id="task" placeholder="add details" />
-          <input type="submit" value="add" />
+          <input className="todo__input" value={createdTask} onChange={inputChange} type="text" name="task" id="task" placeholder="add details" />
+          <input className="todo__btn" type="submit" value="add" />
         </div>
-        <div>
-          <ul>
-            {filtredTasks.map(task => {
-              return (
-                <li key={task.id}><input defaultChecked={task.isCompleted} type="checkbox" name="task" id="" onChange={(e) => checkTask(e, task.id)} /><label htmlFor="">{task.description}</label></li>
-              )
-            })}
-          </ul>
-        </div>
+
+        <ul className="todo__tasks-list">
+          {filtredTasks.map(task => {
+            return (
+              <li key={task.id}><input defaultChecked={task.isCompleted} type="checkbox" name="task" id="" onChange={(e) => checkTask(e, task.id)} /><label htmlFor="">{task.description}</label></li>
+            )
+          })}
+        </ul>
       </form>
     </div>
   );
